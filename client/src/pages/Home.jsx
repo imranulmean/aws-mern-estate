@@ -13,9 +13,23 @@ export default function Home() {
   SwiperCore.use([Navigation]);
   console.log(offerListings);
   useEffect(() => {
+
+
     const fetchOfferListings = async () => {
       try {
         const res = await fetch('/api/listing/get?offer=true&limit=4');
+//        const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+        // const res = await fetch(getListingsURL, {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({
+        //     queryParam:"getListings",
+        //     offer:"true",
+        //     limit:"4"
+        //   }),
+        // });         
         const data = await res.json();
         setOfferListings(data);
         fetchRentListings();
@@ -23,6 +37,9 @@ export default function Home() {
         console.log(error);
       }
     };
+    const getAllListings= async (type, limit, offer) =>{
+
+    }
     const fetchRentListings = async () => {
       try {
         const res = await fetch('/api/listing/get?type=rent&limit=4');
@@ -36,7 +53,19 @@ export default function Home() {
 
     const fetchSaleListings = async () => {
       try {
-        const res = await fetch('/api/listing/get?type=sale&limit=4');
+         const res = await fetch('/api/listing/get?type=sale&limit=4');
+      //  const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      //   const res = await fetch(getListingsURL, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       queryParam:"getListings",
+      //       "type":"sale",
+      //       limit:"4"
+      //     }),
+      //   });         
         const data = await res.json();
         setSaleListings(data);
       } catch (error) {

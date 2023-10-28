@@ -82,7 +82,10 @@ export default function Profile() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          queryParam:"updateUser"
+        }),
       });
       const data = await res.json();
       if (data.success === false) {
@@ -98,20 +101,21 @@ export default function Profile() {
   };
 
   const handleDeleteUser = async () => {
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message));
-    }
+    alert("Not Active")
+    // try {
+    //   dispatch(deleteUserStart());
+    //   const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+    //     method: 'DELETE',
+    //   });
+    //   const data = await res.json();
+    //   if (data.success === false) {
+    //     dispatch(deleteUserFailure(data.message));
+    //     return;
+    //   }
+    //   dispatch(deleteUserSuccess(data));
+    // } catch (error) {
+    //   dispatch(deleteUserFailure(error.message));
+    // }
   };
 
   const handleSignOut = async () => {
@@ -132,16 +136,6 @@ export default function Profile() {
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-
-      if(!formData?.currentUser){
-        setFormData({
-          ...formData,
-          queryParam:"getUserListings",
-          currentUser:currentUser._id
-        });
-        alert("Please click again, React Problem in Setting value ");
-        return;
-      }
      // const res = await fetch(`/api/user/listings/${currentUser._id}`);
       const getUserListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;      
       const res = await fetch(getUserListingsURL, {
@@ -149,7 +143,11 @@ export default function Profile() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          queryParam:"getUserListings",
+          currentUser:currentUser._id
+        }),
       });      
       const data = await res.json();
       if (data.success === false) {
@@ -252,7 +250,7 @@ export default function Profile() {
           onClick={handleDeleteUser}
           className='text-red-700 cursor-pointer'
         >
-          Delete account
+          Delete account (Not active Yet)
         </span>
         <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
           Sign out

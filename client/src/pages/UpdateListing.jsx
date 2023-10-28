@@ -27,6 +27,7 @@ export default function CreateListing() {
     offer: false,
     parking: false,
     furnished: false,
+    
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -36,7 +37,18 @@ export default function CreateListing() {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.listingId;
-      const res = await fetch(`/api/listing/get/${listingId}`);
+      //const res = await fetch(`/api/listing/get/${listingId}`);
+      const getListingAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${listingId}`;
+      const res = await fetch(getListingAPIURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          queryParam:"getListing"
+        }),
+      });      
       const data = await res.json();
       if (data.success === false) {
         console.log(data.message);
@@ -146,9 +158,12 @@ export default function CreateListing() {
         return setError('You must upload at least one image');
       if (+formData.regularPrice < +formData.discountPrice)
         return setError('Discount price must be lower than regular price');
-      setLoading(true);
+     setLoading(true);
       setError(false);
-      const res = await fetch(`/api/listing/update/${params.listingId}`, {
+      
+      // `/api/listing/update/${params.listingId}`
+      const updateAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${params.listingId}`;
+      const res = await fetch(updateAPIURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -156,6 +171,7 @@ export default function CreateListing() {
         body: JSON.stringify({
           ...formData,
           userRef: currentUser._id,
+          queryParam:"updateListing"
         }),
       });
       const data = await res.json();
@@ -163,7 +179,12 @@ export default function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${data._id}`);
+      if(data.success){
+        navigate(`/listing/${data.updatedListing._id}`);
+      }
+      else{
+        setError(data.message);
+      }
     } catch (error) {
       setError(error.message);
       setLoading(false);

@@ -12,7 +12,6 @@ export default function Search() {
     offer: false,
     sort: 'created_at',
     order: 'desc',
-    queryParam:"getListings"
   });
 
   const [loading, setLoading] = useState(false);
@@ -46,7 +45,7 @@ export default function Search() {
         offer: offerFromUrl === 'true' ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
-        queryParam:"getListings"
+        
       });
     }
     console.log(urlParams.toString());
@@ -65,7 +64,10 @@ export default function Search() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(sidebardata),
+        body: JSON.stringify({
+          ...sidebardata,
+          queryParam:"getListings"
+        }),
       });      
       const data = await res.json();
       console.log(data);
