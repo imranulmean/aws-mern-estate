@@ -132,7 +132,13 @@ export default function CreateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/create', {
+      setFormData({
+        ...formData,
+        queryParam:"createListing"
+      });      
+      // '/api/listing/create'
+      const createListingURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const res = await fetch(createListingURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +153,10 @@ export default function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${data._id}`);
+      if(data.success){
+        navigate(`/listing/${data.listing._id}`);
+      }
+      
     } catch (error) {
       setError(error.message);
       setLoading(false);

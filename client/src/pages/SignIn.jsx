@@ -17,27 +17,37 @@ export default function SignIn() {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
+      queryParam:"signIn"
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch('/api/auth/signin', {
+      // '/api/auth/signin'
+      const signInApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+
+      const res = await fetch(signInApiURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
+      
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+         dispatch(signInFailure(data.message));
         return;
+      }      
+      if(data.success){
+          dispatch(signInSuccess(data));
+          navigate('/');
       }
-      dispatch(signInSuccess(data));
-      navigate('/');
+      else{
+        dispatch(signInFailure("User not Signed in"))
+      }
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
@@ -62,10 +72,11 @@ export default function SignIn() {
         />
 
         <button
-          disabled={loading}
+          //disabled={loading}
           className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
         >
-          {loading ? 'Loading...' : 'Sign In'}
+          {/* {loading ? 'Loading...' : 'Sign In'} */}
+          Sign In
         </button>
         <OAuth/>
       </form>

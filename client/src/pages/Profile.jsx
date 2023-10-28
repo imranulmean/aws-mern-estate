@@ -71,10 +71,13 @@ export default function Profile() {
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      // `/api/user/update/${currentUser._id}`
+      const updateAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${currentUser._id}`;
+      const res = await fetch(updateAPIURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +132,25 @@ export default function Profile() {
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+
+      if(!formData?.currentUser){
+        setFormData({
+          ...formData,
+          queryParam:"getUserListings",
+          currentUser:currentUser._id
+        });
+        alert("Please click again, React Problem in Setting value ");
+        return;
+      }
+     // const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const getUserListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;      
+      const res = await fetch(getUserListingsURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });      
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);

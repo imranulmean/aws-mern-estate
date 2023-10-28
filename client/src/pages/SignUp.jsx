@@ -11,13 +11,17 @@ export default function SignUp() {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
+      queryParam:"signUp"
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch('/api/auth/signup', {
+      // /api/auth/signup
+      const signUpApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+
+      const res = await fetch(signUpApiURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,18 +29,22 @@ export default function SignUp() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
+       console.log(data);
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
         return;
       }
       setLoading(false);
-      setError(null);
-      navigate('/sign-in');
+      setError(null);   
+      if(String(data)=="User Created Successfully"){
+        navigate('/sign-in');
+      }
+      
     } catch (error) {
       setLoading(false);
       setError(error.message);
+      // console.log(data);
     }
   };
   return (

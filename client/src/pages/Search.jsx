@@ -12,6 +12,7 @@ export default function Search() {
     offer: false,
     sort: 'created_at',
     order: 'desc',
+    queryParam:"getListings"
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ export default function Search() {
     const typeFromUrl = urlParams.get('type');
     const parkingFromUrl = urlParams.get('parking');
     const furnishedFromUrl = urlParams.get('furnished');
-    const offerFromUrl = urlParams.get('offer');
+     const offerFromUrl = urlParams.get('offer');
     const sortFromUrl = urlParams.get('sort');
     const orderFromUrl = urlParams.get('order');
 
@@ -45,15 +46,29 @@ export default function Search() {
         offer: offerFromUrl === 'true' ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
+        queryParam:"getListings"
       });
     }
+    console.log(urlParams.toString());
+    console.log(sidebardata);
 
     const fetchListings = async () => {
       setLoading(true);
       setShowMore(false);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/listing/get?${searchQuery}`);
+      // /api/listing/get?     
+      //const res = await fetch(`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mernQuery/mern-state-queryparam?mernquerystring=${searchQuery}`);
+      //const res = await fetch(`/api/listing/get?=${searchQuery}`);
+      const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const res = await fetch(getListingsURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sidebardata),
+      });      
       const data = await res.json();
+      console.log(data);
       if (data.length > 8) {
         setShowMore(true);
       } else {
@@ -63,7 +78,9 @@ export default function Search() {
       setLoading(false);
     };
 
-    fetchListings();
+      fetchListings();
+    
+    
   }, [location.search]);
 
   const handleChange = (e) => {
