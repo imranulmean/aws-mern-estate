@@ -44,7 +44,7 @@ export default function CreateListing() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'deny'
+          'Authorization': 'allow'
         },
         body: JSON.stringify({
           ...formData,
@@ -169,6 +169,7 @@ export default function CreateListing() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'allow'
         },
         body: JSON.stringify({
           ...formData,

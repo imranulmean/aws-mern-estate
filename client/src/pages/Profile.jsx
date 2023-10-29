@@ -179,6 +179,23 @@ export default function Profile() {
       console.log(error.message);
     }
   };
+
+  const apiAuthorizationCheck = async () => {
+    const apiAuthorizationCheckURL="https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip";
+    try{
+    const res= await fetch (apiAuthorizationCheckURL,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "allow" // Add your custom header
+      }
+    });
+      console.log(await res.json());
+    }catch(error){
+      console.log(error);
+    }
+  }
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -245,6 +262,10 @@ export default function Profile() {
           Create Listing
         </Link>
       </form>
+
+      <button onClick={()=>apiAuthorizationCheck()} className='bg-yellow-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'> 
+          ApiAuthorizationCheck
+      </button>      
       <div className='flex justify-between mt-5'>
         <span
           onClick={handleDeleteUser}
