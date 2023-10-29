@@ -11,26 +11,14 @@ export default function Home() {
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
   SwiperCore.use([Navigation]);
-  console.log(offerListings);
+
   useEffect(() => {
-
-
     const fetchOfferListings = async () => {
       try {
-        const res = await fetch('/api/listing/get?offer=true&limit=4');
-//        const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
-        // const res = await fetch(getListingsURL, {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({
-        //     queryParam:"getListings",
-        //     offer:"true",
-        //     limit:"4"
-        //   }),
-        // });         
-        const data = await res.json();
+//        const res = await fetch('/api/listing/get?offer=true&limit=4');
+        
+        //const data = await res.json();
+        const data = await getAllListings('all',4,'true');
         setOfferListings(data);
         fetchRentListings();
       } catch (error) {
@@ -38,12 +26,26 @@ export default function Home() {
       }
     };
     const getAllListings= async (type, limit, offer) =>{
-
+       const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+        const res = await fetch(getListingsURL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            queryParam:"getListings",
+            offer,
+            limit,
+            type
+          }),
+        });
+        return await res.json();
     }
     const fetchRentListings = async () => {
       try {
-        const res = await fetch('/api/listing/get?type=rent&limit=4');
-        const data = await res.json();
+        // const res = await fetch('/api/listing/get?type=rent&limit=4');
+        // const data = await res.json();
+        const data = await getAllListings('rent',4,'false');
         setRentListings(data);
         fetchSaleListings();
       } catch (error) {
@@ -53,20 +55,11 @@ export default function Home() {
 
     const fetchSaleListings = async () => {
       try {
-         const res = await fetch('/api/listing/get?type=sale&limit=4');
-      //  const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
-      //   const res = await fetch(getListingsURL, {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({
-      //       queryParam:"getListings",
-      //       "type":"sale",
-      //       limit:"4"
-      //     }),
-      //   });         
-        const data = await res.json();
+        console.log("fetchSaleListings");
+        //  const res = await fetch('/api/listing/get?type=sale&limit=4');      
+        // const data = await res.json();
+        const data = await getAllListings('sale',4,'false');
+        console.log(data)
         setSaleListings(data);
       } catch (error) {
         log(error);

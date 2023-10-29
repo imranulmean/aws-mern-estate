@@ -35,6 +35,7 @@ export default function CreateListing() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    
     const fetchListing = async () => {
       const listingId = params.listingId;
       //const res = await fetch(`/api/listing/get/${listingId}`);
@@ -43,6 +44,7 @@ export default function CreateListing() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'deny'
         },
         body: JSON.stringify({
           ...formData,
