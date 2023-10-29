@@ -48,8 +48,6 @@ export default function Search() {
         
       });
     }
-    console.log(urlParams.toString());
-    console.log(sidebardata);
 
     const fetchListings = async () => {
       setLoading(true);

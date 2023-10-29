@@ -30,10 +30,23 @@ export default function Listing() {
 
   useEffect(() => {
     const fetchListing = async () => {
+      
       try {
         setLoading(true);
-        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        // const res = await fetch(`/api/listing/get/${params.listingId}`);
+        const getListingAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${params.listingId}`;
+        const res = await fetch(getListingAPIURL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'allow'
+          },
+          body: JSON.stringify({
+            queryParam:"getListing"
+          }),
+        });        
         const data = await res.json();
+        console.log(data);
         if (data.success === false) {
           setError(true);
           setLoading(false);
