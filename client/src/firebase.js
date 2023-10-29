@@ -14,7 +14,8 @@ import { initializeApp } from 'firebase/app';
 // };
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  // apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: "AIzaSyDyu3zPHWGI7Qmamx9mStYscCPY4hNgMZg",
   authDomain: 'mern-estate.firebaseapp.com',
   projectId: 'mern-estate',
   storageBucket: 'mern-estate.appspot.com',
