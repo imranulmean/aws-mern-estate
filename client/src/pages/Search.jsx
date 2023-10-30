@@ -60,7 +60,8 @@ export default function Search() {
       const res = await fetch(getListingsURL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization':'arn'
         },
         body: JSON.stringify({
           ...sidebardata,

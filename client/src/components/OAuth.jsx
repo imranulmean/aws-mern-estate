@@ -21,6 +21,7 @@ export default function OAuth() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization':'arn'
         },
         body: JSON.stringify({
           name: result.user.displayName,

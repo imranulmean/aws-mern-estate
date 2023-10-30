@@ -133,8 +133,7 @@ export default function CreateListing() {
       setLoading(true);
       setError(false);
       setFormData({
-        ...formData,
-        queryParam:"createListing"
+        ...formData
       });      
       // '/api/listing/create'
       const createListingURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
@@ -142,10 +141,12 @@ export default function CreateListing() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization':'arn'
         },
         body: JSON.stringify({
           ...formData,
           userRef: currentUser._id,
+          queryParam:"createListing"
         }),
       });
       const data = await res.json();

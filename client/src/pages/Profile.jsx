@@ -81,7 +81,7 @@ export default function Profile() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization':'allow'
+          'Authorization':'arn'
         },
         body: JSON.stringify({
           ...formData,
@@ -144,6 +144,7 @@ export default function Profile() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization':'arn'
         },
         body: JSON.stringify({
           ...formData,
@@ -190,7 +191,7 @@ export default function Profile() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "allow" // Add your custom header
+        'Authorization': "arn" // Add your custom header
       }
     });
       console.log(await res.json());

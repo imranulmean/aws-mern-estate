@@ -31,6 +31,7 @@ export default function Home() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization':'arn'
           },
           body: JSON.stringify({
             queryParam:"getListings",
