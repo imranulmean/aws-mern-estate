@@ -127,7 +127,8 @@ export default function Profile() {
       //   dispatch(deleteUserFailure(data.message));
       //   return;
       // }
-      dispatch(deleteUserSuccess(data));
+      // dispatch(deleteUserSuccess(data));
+      dispatch(deleteUserSuccess());
     } catch (error) {
       dispatch(deleteUserFailure(data.message));
     }
