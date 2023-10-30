@@ -81,6 +81,7 @@ export default function Profile() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization':'allow'
         },
         body: JSON.stringify({
           ...formData,
