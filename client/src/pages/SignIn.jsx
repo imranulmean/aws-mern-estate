@@ -25,7 +25,8 @@ export default function SignIn() {
     try {
       dispatch(signInStart());
       // '/api/auth/signin'
-      const signInApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      // const signInApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const signInApiURL=`https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost`;
 
       const res = await fetch(signInApiURL, {
         method: 'POST',
@@ -35,9 +36,8 @@ export default function SignIn() {
         },
         body: JSON.stringify(formData),
       });
-      
       const data = await res.json();
-      console.log(data);
+
       if (data.success === false) {
          dispatch(signInFailure(data.message));
         return;
