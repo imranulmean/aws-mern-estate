@@ -164,7 +164,8 @@ export default function CreateListing() {
       setError(false);
       
       // `/api/listing/update/${params.listingId}`
-      const updateAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${params.listingId}`;
+      // const updateAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${params.listingId}`;
+      const updateAPIURL= `https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost/${params.listingId}`;
       const res = await fetch(updateAPIURL, {
         method: 'POST',
         headers: {
