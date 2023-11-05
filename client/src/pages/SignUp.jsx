@@ -19,7 +19,8 @@ export default function SignUp() {
     try {
       setLoading(true);
       // /api/auth/signup
-      const signUpApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      //const signUpApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const signUpApiURL=import.meta.env.SAM_SIGN_IN_API_URL;
 
       const res = await fetch(signUpApiURL, {
         method: 'POST',

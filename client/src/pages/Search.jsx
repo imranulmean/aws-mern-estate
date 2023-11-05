@@ -56,7 +56,8 @@ export default function Search() {
       // /api/listing/get?     
       //const res = await fetch(`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mernQuery/mern-state-queryparam?mernquerystring=${searchQuery}`);
       //const res = await fetch(`/api/listing/get?=${searchQuery}`);
-      const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      // const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const getListingsURL=import.meta.env.SAM_SIGN_IN_API_URL;
       const res = await fetch(getListingsURL, {
         method: 'POST',
         headers: {

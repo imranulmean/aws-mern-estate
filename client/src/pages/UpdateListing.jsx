@@ -39,7 +39,8 @@ export default function CreateListing() {
     const fetchListing = async () => {
       const listingId = params.listingId;
       //const res = await fetch(`/api/listing/get/${listingId}`);
-      const getListingAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${listingId}`;
+      //const getListingAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${listingId}`;
+      const getListingAPIURL= import.meta.env.SAM_SIGN_IN_API_URL+'/'+listingId
       const res = await fetch(getListingAPIURL, {
         method: 'POST',
         headers: {
@@ -165,7 +166,8 @@ export default function CreateListing() {
       
       // `/api/listing/update/${params.listingId}`
       // const updateAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${params.listingId}`;
-      const updateAPIURL= `https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost/${params.listingId}`;
+      //const updateAPIURL= `https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost/${params.listingId}`;
+      const updateAPIURL= import.meta.env.SAM_SIGN_IN_API_URL+'/'+params.listingId;
       const res = await fetch(updateAPIURL, {
         method: 'POST',
         headers: {

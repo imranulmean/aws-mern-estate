@@ -136,7 +136,8 @@ export default function CreateListing() {
         ...formData
       });      
       // '/api/listing/create'
-      const createListingURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      //const createListingURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const createListingURL=import.meta.env.SAM_SIGN_IN_API_URL;
       const res = await fetch(createListingURL, {
         method: 'POST',
         headers: {

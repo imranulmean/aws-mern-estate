@@ -77,7 +77,7 @@ export default function Profile() {
       dispatch(updateUserStart());
       // `/api/user/update/${currentUser._id}`
       //const updateAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${currentUser._id}`;
-      const updateAPIURL= `https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost/${currentUser._id}`;
+      const updateAPIURL= import.meta.env.SAM_SIGN_IN_API_URL+'/'+currentUser._id;
       const res = await fetch(updateAPIURL, {
         method: 'POST',
         headers: {
@@ -141,7 +141,7 @@ export default function Profile() {
       setShowListingsError(false);
      // const res = await fetch(`/api/user/listings/${currentUser._id}`);
       //const getUserListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
-      const getUserListingsURL=`https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost`;
+      const getUserListingsURL=import.meta.env.SAM_SIGN_IN_API_URL;
       const res = await fetch(getUserListingsURL, {
         method: 'POST',
         headers: {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   signInStart,
   signInSuccess,
@@ -22,11 +23,12 @@ export default function SignIn() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       dispatch(signInStart());
       // '/api/auth/signin'
       // const signInApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
-      const signInApiURL=`https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost`;
+      const signInApiURL=import.meta.env.SAM_SIGN_IN_API_URL;
 
       const res = await fetch(signInApiURL, {
         method: 'POST',

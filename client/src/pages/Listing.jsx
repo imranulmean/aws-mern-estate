@@ -35,7 +35,7 @@ export default function Listing() {
         setLoading(true);
         // const res = await fetch(`/api/listing/get/${params.listingId}`);
         // const getListingAPIURL= `https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip/${params.listingId}`;
-        const getListingAPIURL= `https://bmn028zkpl.execute-api.us-east-1.amazonaws.com/Stage/mernStatePost/${params.listingId}`;
+        const getListingAPIURL=import.meta.env.SAM_SIGN_IN_API_URL+'/'+params.listingId;
         const res = await fetch(getListingAPIURL, {
           method: 'POST',
           headers: {

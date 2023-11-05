@@ -26,7 +26,8 @@ export default function Home() {
       }
     };
     const getAllListings= async (type, limit, offer) =>{
-       const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+       // const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+       const getListingsURL=import.meta.env.SAM_SIGN_IN_API_URL;
         const res = await fetch(getListingsURL, {
           method: 'POST',
           headers: {
