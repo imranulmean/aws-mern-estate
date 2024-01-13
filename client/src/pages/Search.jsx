@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
 
 export default function Search() {
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
   const [sidebardata, setSidebardata] = useState({
     searchTerm: '',
     type: 'all',
@@ -54,23 +54,8 @@ export default function Search() {
       setShowMore(false);
       const searchQuery = urlParams.toString();
       // /api/listing/get?     
-      //const res = await fetch(`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mernQuery/mern-state-queryparam?mernquerystring=${searchQuery}`);
-      //const res = await fetch(`/api/listing/get?=${searchQuery}`);
-      // const getListingsURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
-      const getListingsURL=import.meta.env.SAM_SIGN_IN_API_URL;
-      const res = await fetch(getListingsURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':'arn'
-        },
-        body: JSON.stringify({
-          ...sidebardata,
-          queryParam:"getListings"
-        }),
-      });      
+      const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
-      console.log(data);
       if (data.length > 8) {
         setShowMore(true);
       } else {
@@ -86,11 +71,7 @@ export default function Search() {
   }, [location.search]);
 
   const handleChange = (e) => {
-    if (
-      e.target.id === 'all' ||
-      e.target.id === 'rent' ||
-      e.target.id === 'sale'
-    ) {
+    if (e.target.id === 'all' ||e.target.id === 'rent' || e.target.id === 'sale') {
       setSidebardata({ ...sidebardata, type: e.target.id });
     }
 
@@ -98,19 +79,13 @@ export default function Search() {
       setSidebardata({ ...sidebardata, searchTerm: e.target.value });
     }
 
-    if (
-      e.target.id === 'parking' ||
-      e.target.id === 'furnished' ||
-      e.target.id === 'offer'
-    ) {
-      setSidebardata({
-        ...sidebardata,
-        [e.target.id]:
-          e.target.checked || e.target.checked === 'true' ? true : false,
+    if (e.target.id === 'parking' ||e.target.id === 'furnished' ||e.target.id === 'offer') {
+      setSidebardata({...sidebardata,[e.target.id]:e.target.checked || e.target.checked === 'true' ? true : false,
       });
     }
 
     if (e.target.id === 'sort_order') {
+      console.log(e.target.value)
       const sort = e.target.value.split('_')[0] || 'created_at';
 
       const order = e.target.value.split('_')[1] || 'desc';
@@ -232,8 +207,7 @@ export default function Search() {
           <div className='flex items-center gap-2'>
             <label className='font-semibold'>Sort:</label>
             <select
-              onChange={handleChange}
-              defaultValue={'created_at_desc'}
+              onChange={handleChange}              
               id='sort_order'
               className='border rounded-lg p-3'
             >

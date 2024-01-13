@@ -63,11 +63,12 @@ export const getListing = async (req, res, next) => {
 };
 
 export const getListings = async (req, res, next) => {
+  console.log(req.query);
+  console.log("Hello");
   try {
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
     let offer = req.query.offer;
-
     if (offer === undefined || offer === 'false') {
       offer = { $in: [false, true] };
     }
@@ -91,7 +92,6 @@ export const getListings = async (req, res, next) => {
     }
 
     const searchTerm = req.query.searchTerm || '';
-
     const sort = req.query.sort || 'createdAt';
 
     const order = req.query.order || 'desc';
@@ -106,7 +106,7 @@ export const getListings = async (req, res, next) => {
       .sort({ [sort]: order })
       .limit(limit)
       .skip(startIndex);
-
+    
     return res.status(200).json(listings);
   } catch (error) {
     next(error);

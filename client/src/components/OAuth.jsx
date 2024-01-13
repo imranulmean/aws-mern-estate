@@ -16,7 +16,7 @@ export default function OAuth() {
       const result = await signInWithPopup(auth, provider);
       console.log("result", result);
       // '/api/auth/google'
-      const signInApiURL=`https://0ko7jyglbb.execute-api.us-east-1.amazonaws.com/mern-state-auth/mern-state-auth-signip`;
+      const signInApiURL=`api/auth/google`;
       const res = await fetch(signInApiURL, {
         method: 'POST',
         headers: {
@@ -32,7 +32,7 @@ export default function OAuth() {
       });
       const data = await res.json();
       // dispatch(signInSuccess(data));
-      if(data.success){
+      if(data){
         dispatch(signInSuccess(data));
         navigate('/');
     }      
